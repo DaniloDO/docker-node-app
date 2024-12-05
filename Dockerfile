@@ -3,7 +3,7 @@
 FROM node:18-alpine
 
 # Set the working directory
-WORKDIR /docker-node-app
+WORKDIR /app
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
