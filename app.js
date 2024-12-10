@@ -8,6 +8,8 @@ dotenv.config();
 const app = express(); 
 const port = process.env.PORT || 3000; 
 
+console.log('MONGO_URI:', process.env.MONGO_URL);
+
 mongoConnection; 
 
 app.use(express.json());
