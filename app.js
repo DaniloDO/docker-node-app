@@ -1,13 +1,18 @@
 import express from "express";
-import { dirname } from 'path'; 
+import dotenv from 'dotenv';
+import mongoConnection from "./database/config/mongoConfig.js";
+import userRouter from "./routes/userRoutes.js";
 
-const __dirname = dirname(import.meta.url);
+dotenv.config(); 
 
 const app = express(); 
-const PORT = 3000; 
+const port = process.env.PORT || 3000; 
+
+mongoConnection; 
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use('/api/user', userRouter); 
 
 app.set('json spaces', 2); 
 
@@ -16,6 +21,10 @@ app.get('/', (req, res) => {
     res.status(200).json({message: 'Docker container deployed'}); 
 }); 
 
-console.log(__dirname); 
+// Shuts down the server
+process.on('SIGINT', () => {
+    console.log('Shutting down server');
+    process.exit(0);  
+})
 
-app.listen(PORT, () => console.log(`listening on port: ${PORT}`));
+app.listen(port, () => console.log(`listening on port: ${port}`));
