@@ -16,7 +16,7 @@ class MongoConnection {
 
     async _connect() {
         try {
-            mongoose.connect(process.env.MONGO_URI);  
+            mongoose.connect(process.env.MONGO_URI, {  authSource: "admin" });  
             console.log('MongoDB connected'); 
         } 
         

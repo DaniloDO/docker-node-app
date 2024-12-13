@@ -15,7 +15,7 @@ services:
           service_healthy
     environment:
       - PORT=3000
-      - MONGO_URI=mongodb://mongo:27017/docker-node-app
+      - MONGO_URI=mongodb://mongo:ieWVvARzlqwtUmCYSJjOeRNIROyMjGKZ@mongodb.railway.internal:27017?authSource=admin
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
