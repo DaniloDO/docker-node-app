@@ -16,7 +16,15 @@ class MongoConnection {
 
     async _connect() {
         try {
-            mongoose.connect(process.env.MONGO_URI);  
+            mongoose.connect(process.env.DOCKER_MONGO_URI, {
+                user: process.env.USER_MONGO,
+                pass: process.env.PASS_MONGO,
+                authMechanism: "DEFAULT",
+                authSource: "admin"
+            });  
+
+            // mongoose.connect(process.env.FULL_DOCKER_MONGO_URI); 
+
             console.log('MongoDB connected'); 
         } 
         
