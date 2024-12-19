@@ -18,7 +18,7 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     networks:
-      back-end: 
+      - backend
 
   redis:
     image: redis:7.4.1-alpine
@@ -33,7 +33,7 @@ services:
     volumes:
       - redis-data:/data
     networks:
-      - back-end:
+      - backend
 
   mongo:
     image: mongo
@@ -54,11 +54,11 @@ services:
       - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
       - mongo-data:/data
     networks:
-      - back-end: 
+      - backend 
 
 volumes:
   redis-data:
   mongo-data: 
 
 networks:
-  back-end: 
+  backend: 
