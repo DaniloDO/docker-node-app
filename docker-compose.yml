@@ -14,6 +14,7 @@ services:
           service_healthy
     environment:
       - PORT=3000
+      - PRODUCTION_MONGO_URI=mongodb://mongo:ieWVvARzlqwtUmCYSJjOeRNIROyMjGKZ@mongodb.railway.internal:27017?authSource=admin
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
