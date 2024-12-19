@@ -17,6 +17,8 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+    networks:
+      back-end: 
 
   redis:
     image: redis:7.4.1-alpine
@@ -30,6 +32,8 @@ services:
       start_period: 30s
     volumes:
       - redis-data:/data
+    networks:
+      - back-end:
 
   mongo:
     image: mongo
@@ -49,7 +53,12 @@ services:
     volumes:
       - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
       - mongo-data:/data
+    networks:
+      - back-end: 
 
 volumes:
   redis-data:
   mongo-data: 
+
+networks:
+  back-end: 
