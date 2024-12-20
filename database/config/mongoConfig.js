@@ -23,7 +23,8 @@ class MongoConnection {
                 authSource: "admin"
             });  
 
-            // mongoose.connect(process.env.FULL_DOCKER_MONGO_URI); 
+            // mongoose.connect(process.env.LOCAL_MONGO_URI); 
+            // mongoose.connect(process.env.MONGO_URI); 
 
             console.log('MongoDB connected'); 
         } 
