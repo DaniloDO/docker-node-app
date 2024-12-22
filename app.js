@@ -3,7 +3,11 @@ import dotenv from 'dotenv';
 import mongoConnection from "./database/config/mongoConfig.js";
 import userRouter from "./routes/userRoutes.js";
 
-dotenv.config(); 
+const environment = process.env.NODE_ENV || "development";
+
+dotenv.config({path: `.${environment}.env`}); 
+
+console.log(`environment: ${environment}`);
 
 const app = express(); 
 const port = process.env.PORT || 3000; 
@@ -20,7 +24,7 @@ app.set('json spaces', 2);
 
 app.get('/', (req, res) => {
 
-    res.status(200).json({message: 'Docker container deployed'}); 
+    res.status(200).json({ message: 'Docker container deployed' }); 
 }); 
 
 // Shuts down the server
