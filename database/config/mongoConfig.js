@@ -1,7 +1,11 @@
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
 
-dotenv.config(); 
+const environment = process.env.NODE_ENV || "development";
+
+dotenv.config({path: `.${environment}.env`}); 
+
+// dotenv.config(); 
 
 class MongoConnection {
     constructor() {
@@ -16,15 +20,15 @@ class MongoConnection {
 
     async _connect() {
         try {
-            // mongoose.connect(process.env.DOCKER_MONGO_URI, {
-            //     user: process.env.USER_MONGO,
-            //     pass: process.env.PASS_MONGO,
-            //     authMechanism: "DEFAULT",
-            //     authSource: "admin"
-            // });  
+            mongoose.connect(process.env.MONGO_URI, {
+                user: process.env.USER_MONGO,
+                pass: process.env.PASS_MONGO,
+                authMechanism: "DEFAULT",
+                authSource: "admin"
+            });  
 
             // mongoose.connect(process.env.LOCAL_MONGO_URI); 
-            mongoose.connect(process.env.MONGO_URI); 
+            // mongoose.connect(process.env.MONGO_URI); 
 
             console.log('MongoDB connected'); 
         } 
