@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "NODE_ENV=development node app.js",
-    "start:docker": "NODE_ENV=development docker compose up --build", 
+    "start:docker": "NODE_ENV=docker docker compose up --build", 
     "start:prod": "NODE_ENV=production railway up"
   },
   "author": "Danilo D.",
