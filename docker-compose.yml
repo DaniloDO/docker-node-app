@@ -12,16 +12,13 @@ services:
       mongo:
         condition:
           service_healthy
-    environment:
-      - PORT=${PORT}
-      - MONGO_URI=${MONGO_URI}
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     networks:
       - backend
     env_file:
-      - .env
+      - .${NODE_ENV}.env
 
   redis:
     image: redis:7.4.1-alpine
@@ -42,7 +39,7 @@ services:
     networks:
       - backend
     env_file:
-      - .env
+      - .${NODE_ENV}.env
 
   mongo:
     image: mongo
@@ -65,7 +62,7 @@ services:
     networks:
       - backend
     env_file:
-      - .env 
+      - .${NODE_ENV}.env
 
 volumes:
   redis-data:

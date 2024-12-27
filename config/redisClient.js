@@ -7,8 +7,8 @@ class RedisClient {
     constructor() {
         if(!RedisClient.instance){
             this.client = redis.createClient({
-                url: process.env.DOCKER_REDIS_URL 
-                // url: process.env.LOCAL_REDIS_URL
+                // url: process.env.DOCKER_REDIS_URL 
+                url: process.env.REDIS_URL
             })
 
             this.client.on('error', (error) => console.error('Error connection with redis client', error));

@@ -32,7 +32,7 @@ class UserService {
     // Gets data from user through email
     async getUserByEmail(userEmail) {
         try {
-            const cacheKey = 'docker-node-app:user-data'; 
+            const cacheKey = 'docker-node-app:user-id'; 
 
             const cacheData = await redisClient.getClient().get(cacheKey); 
             if(cacheData) {
@@ -57,7 +57,7 @@ class UserService {
     // Gets data from user through id
     async getUserById(userId) {
         try {
-            const cacheKey = 'docker-node-app:user-data'; 
+            const cacheKey = 'docker-node-app:user-email'; 
 
             const cacheData = await redisClient.getClient().get(cacheKey); 
             if(cacheData) {

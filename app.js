@@ -12,7 +12,11 @@ console.log(`environment: ${environment}`);
 const app = express(); 
 const port = process.env.PORT || 3000; 
 
-console.log('MONGO_URI:', process.env.PRODUCTION_MONGO_URI);
+console.log('MONGO_URI:', process.env.MONGO_URI);
+console.log('REDIS_URL:', process.env.REDIS_URL);
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('CONFIRM:', process.env.CONFIRM);
+console.log('PORT:', process.env.PORT);
 
 mongoConnection; 
 
