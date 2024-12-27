@@ -3,7 +3,7 @@ name: CI Workflow Development
 
 on:
   push:
-  branches: ["ci-cd/workflow"]
+    branches: ["ci-cd/workflow"]
 
 jobs: 
   build:
