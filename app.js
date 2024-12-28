@@ -22,7 +22,7 @@ console.log('PORT:', process.env.PORT);
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use('/api/user', userRouter); 
+// app.use('/api/user', userRouter); 
 
 app.set('json spaces', 2); 
 
