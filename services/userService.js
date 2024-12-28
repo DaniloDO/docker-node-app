@@ -34,7 +34,7 @@ class UserService {
         try {
             const cacheKey = 'docker-node-app:user-id'; 
 
-            const cacheData = await redisClient.getClient().get(cacheKey); 
+            // const cacheData = await redisClient.getClient().get(cacheKey); 
             if(cacheData) {
                 console.log('Retrieve data from Redis cache');
                 return JSON.parse(cacheData); 
@@ -42,8 +42,8 @@ class UserService {
 
             const user =  await this.userRepository.getUserByEmail(userEmail); 
 
-            await redisClient.getClient().set(cacheKey, JSON.stringify(user), {EX: 60*2}); 
-            console.log('Data stored in Redis cache.');
+            // await redisClient.getClient().set(cacheKey, JSON.stringify(user), {EX: 60*2}); 
+            // console.log('Data stored in Redis cache.');
 
             return user; 
         } 
@@ -59,7 +59,7 @@ class UserService {
         try {
             const cacheKey = 'docker-node-app:user-email'; 
 
-            const cacheData = await redisClient.getClient().get(cacheKey); 
+            // const cacheData = await redisClient.getClient().get(cacheKey); 
             if(cacheData) {
                 console.log('Retrieve data from Redis cache');
                 return JSON.parse(cacheData); 
@@ -67,8 +67,8 @@ class UserService {
 
             const user =  await this.userRepository.getUserById(userId); 
 
-            await redisClient.getClient().set(cacheKey, JSON.stringify(user), {EX: 60*2}); 
-            console.log('Data stored in Redis cache.');
+            // await redisClient.getClient().set(cacheKey, JSON.stringify(user), {EX: 60*2}); 
+            // console.log('Data stored in Redis cache.');
 
             return user; 
         } 
