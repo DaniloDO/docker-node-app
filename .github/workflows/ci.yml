@@ -22,4 +22,6 @@ jobs:
         run: npm install
 
       - name: Run development
+        env: 
+          MONGO_URI=mongodb://localhost:27017/
         run: npm run start:dev

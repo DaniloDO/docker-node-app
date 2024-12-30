@@ -18,11 +18,11 @@ console.log('NODE_ENV:', process.env.NODE_ENV);
 console.log('CONFIRM:', process.env.CONFIRM);
 console.log('PORT:', process.env.PORT);
 
-// mongoConnection; 
+mongoConnection; 
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-// app.use('/api/user', userRouter); 
+app.use('/api/user', userRouter); 
 
 app.set('json spaces', 2); 
 
