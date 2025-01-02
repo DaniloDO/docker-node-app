@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Run development
-        env: 
-          # MONGO_URI: mongodb://localhost:27017/
-          # REDIS_URL: redis://:password@localhost:6379
+        # env: 
+        #   # MONGO_URI: mongodb://localhost:27017/
+        #   # REDIS_URL: redis://:password@localhost:6379
         run: npm run start:dev
