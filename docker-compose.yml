@@ -6,12 +6,12 @@ services:
     ports:
       - '3000:3000'
     depends_on:
-      # redis:
-      #   condition: 
-      #     service_healthy
-      # mongo:
-      #   condition:
-      #     service_healthy
+      redis:
+        condition: 
+          service_healthy
+      mongo:
+        condition:
+          service_healthy
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
@@ -20,53 +20,53 @@ services:
     env_file:
       - .${NODE_ENV}.env
 
-  # redis:
-  #   image: redis:7.4.1-alpine
-  #   ports:
-  #     - '6380:6379'
-  #   healthcheck:
-  #     test: ["CMD-SHELL", "redis-cli", "ping"]
-  #     interval: 1m30s
-  #     timeout: 30s
-  #     retries: 5
-  #     start_period: 30s
-  #   command:
-  #     - /bin/sh 
-  #     - -c 
-  #     - "redis-server --requirepass $${REDIS_PASSWORD}"
-  #   volumes:
-  #     - redis-data:/data
-  #   networks:
-  #     - backend
-  #   env_file:
-  #     - .${NODE_ENV}.env
+  redis:
+    image: redis:7.4.1-alpine
+    ports:
+      - '6380:6379'
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli", "ping"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    command:
+      - /bin/sh 
+      - -c 
+      - "redis-server --requirepass $${REDIS_PASSWORD}"
+    volumes:
+      - redis-data:/data
+    networks:
+      - backend
+    env_file:
+      - .${NODE_ENV}.env
 
-  # mongo:
-  #   image: mongo
-  #   ports:
-  #     - '27018:27017'
-  #   healthcheck:
-  #     test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
-  #     interval: 10s
-  #     timeout: 10s
-  #     retries: 5
-  #     start_period: 40s
-  #   environment:
-  #     - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-  #     - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
-  #     - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
-  #   command: ["--auth"]
-  #   volumes:
-  #     - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
-  #     - mongo-data:/data
-  #   networks:
-  #     - backend
-  #   env_file:
-  #     - .${NODE_ENV}.env
+  mongo:
+    image: mongo
+    ports:
+      - '27018:27017'
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+    command: ["--auth"]
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - mongo-data:/data
+    networks:
+      - backend
+    env_file:
+      - .${NODE_ENV}.env
 
 volumes:
-  # redis-data:
-  # mongo-data: 
+  redis-data:
+  mongo-data: 
 
 networks:
   backend: 

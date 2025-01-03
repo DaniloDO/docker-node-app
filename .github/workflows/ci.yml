@@ -9,6 +9,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      mongodb: 
+        image: mongo
+        env: 
+          - MONGO_INITDB_ROOT_USERNAME=admin
+          - MONGO_INITDB_ROOT_PASSWORD=admin
+          - MONGO_INITDB_DATABASE=admin
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd mongo
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,8 +36,23 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install mongosh
+        run: |
+          sudo apt-get install gnupg curl
+          curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | \ sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg \ --dearmor
+          echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
+          sudo apt-get update
+          sudo apt-get install -y mongodb-org
+          mongosh --version
+
+      - name: Initialize mongodb
+        run: |
+          mongosh --host localhost:27017 -u admin -p admin --authenticationDatabase admin <<EOF
+          db = db.getSiblingDB('admin');
+          db.createUser({ user: 'root', pwd: 'password', roles: [{ role: 'readWrite', db: 'admin' }] })
+
       - name: Run development
-        # env: 
-        #   # MONGO_URI: mongodb://localhost:27017/
-        #   # REDIS_URL: redis://:password@localhost:6379
+        env: 
+          MONGO_URI: mongodb://localhost:27017/
+          REDIS_URL: redis://:password@localhost:6379
         run: npm run start:dev
